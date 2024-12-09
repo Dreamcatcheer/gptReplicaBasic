@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple ChatGPT Replica</title>
+    
+</head>
+<body>
+    <div class="chat-container">
+        <h1>Chat with GPT</h1>
+        <div class="chat-box" id="chat-box"></div>
+        <input type="text" id="user-input" placeholder="Type your message..." />
+        <button onclick="sendMessage()">Send</button>
+    </div>
+    <style>
+        body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.chat-container {
+    background-color: #ffffff;
+    border-radius: 10px;
+    width: 400px;
+    padding: 20px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    text-align: center;
+    color: #333;
+}
+
+.chat-box {
+    height: 300px;
+    border: 1px solid #ccc;
+    overflow-y: scroll;
+    padding: 10px;
+    margin-bottom: 10px;
+    background-color: #fafafa;
+}
+
+input {
+    width: 75%;
+    padding: 10px;
+    margin-right: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+button {
+    padding: 10px 15px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+    </style>
+
+
+    <script> 
+        // Function to handle sending messages
+function sendMessage() {
+    const userInput = document.getElementById("user-input");
+    const chatBox = document.getElementById("chat-box");
+    const message = userInput.value.trim();
+
+    // Check if the input is empty
+    if (message === "") return;
+
+    // Add the user's message to the chat box
+    chatBox.innerHTML += `<div class="user-message"><strong>You:</strong> ${message}</div>`;
+
+    // Clear the input field
+    userInput.value = "";
+
+    // Simulate a response after a short delay
+    setTimeout(() => {
+        const response = getResponse(message); // Get a response
+        chatBox.innerHTML += `<div class="bot-message"><strong>Bot:</strong> ${response}</div>`;
+        
+        // Scroll to the bottom
+        chatBox.scrollTop = chatBox.scrollHeight;
+    }, 500);
+}
+
+// Function to simulate responses
+function getResponse(input) {
+    // Pre-set responses
+    const responses = {
+        "hello": "Hi there! How can I help you?",
+        "how are you": "I'm just a bot, but I'm doing fine! 😊",
+        "what is your name": "I'm a simple chatbot created by you.",
+        "bye": "Goodbye! Have a great day!",
+        "default": "Sorry, I don't understand that. Can you try something else?"
+    };
+
+    // Normalize the input (lowercase) and find a response
+    const normalizedInput = input.toLowerCase();
+    return responses[normalizedInput] || responses["default"];
+}
+
+    </script>
+</body>
+</html>
